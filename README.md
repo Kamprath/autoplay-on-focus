@@ -1,4 +1,4 @@
-## Autplay on Focus
+## Autoplay on Focus
 This bookmarklet causes any video on a page to automatically pause on window blur and resume on focus.
 
 ### Setup
