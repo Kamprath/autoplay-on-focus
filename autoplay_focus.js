@@ -7,7 +7,8 @@
 		},
 
 		data: {
-			eventsBinded: false
+			eventsBinded: false,
+			active: true
 		},
 
 		init: function(pageName) {
@@ -17,6 +18,7 @@
 	    	if (video !== null) {
 	    		if (isPage) {
 					video.addEventListener('play', this.bindEvents.bind(this));
+					video.addEventListener('ended', (function() { this.data.active = false; }).bind(this));
 	    		}
 	    	} else {
 	    		this.displayMessage('No video exists on this page.', true);
@@ -84,12 +86,16 @@
 		 */
 		bindEvents: function(e) {
 			if (!this.data.eventsBinded) {
-				window.addEventListener('focus', function() {
-					e.target.play();
-				});
-				window.addEventListener('blur', function() {
-					e.target.pause();
-				});
+				window.addEventListener('focus', (function() {
+					if (this.data.active) {
+						e.target.play();
+					}
+				}).bind(this));
+				window.addEventListener('blur', (function() {
+					if (this.data.active) {
+						e.target.pause();
+					}
+				}).bind(this));
 
 				this.data.eventsBinded = true;
 	        	this.displayMessage('Autoplay-on-focus enabled');
