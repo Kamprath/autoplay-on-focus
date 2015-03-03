@@ -8,7 +8,7 @@
 
 		data: {
 			eventsBinded: false,
-			active: true
+			active: false
 		},
 
 		init: function(pageName) {
@@ -85,6 +85,8 @@
 		 * @param  {Event} e [description]
 		 */
 		bindEvents: function(e) {
+			this.data.active = true;
+
 			if (!this.data.eventsBinded) {
 				window.addEventListener('focus', (function() {
 					if (this.data.active) {
